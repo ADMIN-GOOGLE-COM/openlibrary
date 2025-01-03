@@ -10,24 +10,37 @@ import web
 
 from infogami import config
 from infogami.core import code as core
+from infogami.infobase import client
 from infogami.plugins.api.code import jsonapi, make_query
 from infogami.plugins.api.code import request as infogami_request
-
 from infogami.infobase import client
-from infogami.utils import delegate, app, types
-from infogami.utils.view import public, safeint, render
-from infogami.utils.view import render_template  # used for its side effects
-from infogami.utils.context import context
-from infogami.utils.view import add_flash_message
-
-from openlibrary import accounts
-
-from openlibrary.plugins.upstream import addbook, addtag, covers, models, utils, mybooks
-from openlibrary.plugins.upstream import spamcheck
-from openlibrary.plugins.upstream import merge_authors
-from openlibrary.plugins.upstream import edits
-from openlibrary.plugins.upstream import checkins
-from openlibrary.plugins.upstream import borrow, recentchanges  # TODO: unused imports?
+from infogami.utils import (
+  delegate,
+  app,
+  types
+)
+from infogami.utils.context import context  # noqa: F401 side effects may be needed
+from infogami.utils.view import (
+    add_flash_message,
+    public,
+    render,
+    render_template,  # used for its side effects
+    safeint,
+)
+from openlibrary import accounts  # noqa: F401 side effects may be needed
+from openlibrary.plugins.upstream import (
+    addbook,
+    addtag,
+    borrow,  # noqa: F401 side effects may be needed
+    checkins,
+    covers,
+    edits,
+    merge_authors,
+    models,
+    recentchanges,  # noqa: F401 side effects may be needed
+    spamcheck,
+    utils,
+)  # TODO: unused imports?
 from openlibrary.plugins.upstream.utils import render_component
 from openlibrary.utils import extract_numeric_id_from_olid
 
@@ -498,7 +511,7 @@ def setup():
     data.setup()
 
     # setup template globals
-    from openlibrary.i18n import ugettext, ungettext, gettext_territory
+    from openlibrary.i18n import gettext_territory, ugettext, ungettext
 
     web.template.Template.globals.update(
         {

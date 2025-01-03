@@ -246,7 +246,10 @@ $ worldcat_links = macros.WorldcatLink(isbn=isbn_13 or isbn_10, oclc_numbers=ocl
         <div class="book-description">
             <div class="book-description-content">
                 <p class="workHelp">
-                    $:_("This edition doesn't have a description yet. Can you <b><a href='%(url)s'>add one</a></b>?", url=edition.url('/edit')+"#about/about")
+                    $if page_type=="works":
+                      $:_("This work doesn't have a description yet. Can you <b><a href='%(url)s'>add one</a></b>?", url=edition.url('/edit')+"#about/about")
+                    $else:
+                      $:_("This edition doesn't have a description yet. Can you <b><a href='%(url)s'>add one</a></b>?", url=edition.url('/edit')+"#edition/description")
                 </p>
             </div>
         </div>
@@ -357,7 +360,7 @@ $ worldcat_links = macros.WorldcatLink(isbn=isbn_13 or isbn_10, oclc_numbers=ocl
             </div>
 
           $ table_of_contents = edition.get_table_of_contents()
-          $if table_of_contents and len(table_of_contents) > 1:
+          $if table_of_contents and len(table_of_contents.entries) > 1:
             <div class="section read-more">
               <h3>$_("Table of Contents")</h3>
               $ component_times['TableOfContents'] = time()

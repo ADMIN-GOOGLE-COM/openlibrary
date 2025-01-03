@@ -1,31 +1,30 @@
 import os
+from datetime import datetime
+
 import pytest
 
-from datetime import datetime
 from infogami.infobase.client import Nothing
 from infogami.infobase.core import Text
-
 from openlibrary.catalog import add_book
 from openlibrary.catalog.add_book import (
+    IndependentlyPublished,
+    PublicationYearTooOld,
+    PublishedInFutureYear,
+    RequiredField,
+    SourceNeedsISBN,
     build_pool,
     editions_matched,
     find_match,
-    IndependentlyPublished,
     isbns_from_record,
     load,
     load_data,
     normalize_import_record,
-    PublicationYearTooOld,
-    PublishedInFutureYear,
-    RequiredField,
     should_overwrite_promise_item,
-    SourceNeedsISBN,
     split_subtitle,
     validate_record,
 )
-
-from openlibrary.catalog.marc.parse import read_edition
 from openlibrary.catalog.marc.marc_binary import MarcBinary
+from openlibrary.catalog.marc.parse import read_edition
 
 
 def open_test_data(filename):
@@ -95,7 +94,7 @@ bookseller_titles = [
 ]
 
 
-@pytest.mark.parametrize('full_title,title,subtitle', bookseller_titles)
+@pytest.mark.parametrize(('full_title', 'title', 'subtitle'), bookseller_titles)
 def test_split_subtitle(full_title, title, subtitle):
     assert split_subtitle(full_title) == (title, subtitle)
 
@@ -1311,7 +1310,7 @@ def test_adding_list_field_items_to_edition_deduplicates_input(mock_site) -> Non
 
 
 @pytest.mark.parametrize(
-    'name, rec, error',
+    ('name', 'rec', 'error'),
     [
         (
             "Books prior to 1400 CANNOT be imported if from a bookseller requiring additional validation",
@@ -1436,7 +1435,7 @@ def test_reimport_updates_edition_and_work_description(mock_site) -> None:
 
 
 @pytest.mark.parametrize(
-    "name, edition, marc, expected",
+    ('name', 'edition', 'marc', 'expected'),
     [
         (
             "Overwrites revision 1 promise items with MARC data",
@@ -1571,7 +1570,7 @@ class TestLoadDataWithARev1PromiseItem:
 
 class TestNormalizeImportRecord:
     @pytest.mark.parametrize(
-        'year, expected',
+        ('year', 'expected'),
         [
             ("2000-11-11", True),
             (str(datetime.now().year), True),
@@ -1591,7 +1590,7 @@ class TestNormalizeImportRecord:
         assert result == expected
 
     @pytest.mark.parametrize(
-        'rec, expected',
+        ('rec', 'expected'),
         [
             (
                 {
@@ -1631,7 +1630,7 @@ class TestNormalizeImportRecord:
         assert rec == expected
 
     @pytest.mark.parametrize(
-        ["rec", "expected"],
+        ('rec', 'expected'),
         [
             (
                 # 1900 publication from non AMZ/BWB is okay.

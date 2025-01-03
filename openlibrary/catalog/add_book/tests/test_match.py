@@ -1,6 +1,6 @@
-import pytest
-
 from copy import deepcopy
+
+import pytest
 
 from openlibrary.catalog.add_book import load
 from openlibrary.catalog.add_book.match import (
@@ -11,8 +11,8 @@ from openlibrary.catalog.add_book.match import (
     compare_publisher,
     editions_match,
     expand_record,
-    normalize,
     mk_norm,
+    normalize,
     threshold_match,
 )
 
@@ -66,7 +66,7 @@ titles = [
 ]
 
 
-@pytest.mark.parametrize('title,normalized', titles)
+@pytest.mark.parametrize(('title', 'normalized'), titles)
 def test_normalize(title, normalized):
     assert normalize(title) == normalized
 
@@ -81,7 +81,7 @@ mk_norm_conversions = [
 ]
 
 
-@pytest.mark.parametrize('title,expected', mk_norm_conversions)
+@pytest.mark.parametrize(('title', 'expected'), mk_norm_conversions)
 def test_mk_norm(title, expected):
     assert mk_norm(title) == expected
 
@@ -91,7 +91,7 @@ mk_norm_matches = [
 ]
 
 
-@pytest.mark.parametrize('a,b', mk_norm_matches)
+@pytest.mark.parametrize(('a', 'b'), mk_norm_matches)
 def test_mk_norm_equality(a, b):
     assert mk_norm(a) == mk_norm(b)
 

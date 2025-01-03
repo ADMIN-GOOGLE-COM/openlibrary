@@ -1,8 +1,8 @@
 import os
+import xml.etree.ElementTree as ET
 
 import pytest
 from babel.messages.pofile import read_po
-import xml.etree.ElementTree as ET
 
 from openlibrary.i18n import get_locales
 
@@ -73,7 +73,7 @@ def gen_html_entries():
         yield pytest.param(locale, msgid, msgstr, id=f'{locale}-{msgid}')
 
 
-@pytest.mark.parametrize("locale,msgid,msgstr", gen_html_entries())
+@pytest.mark.parametrize(('locale', 'msgid', 'msgstr'), gen_html_entries())
 def test_html_format(locale: str, msgid: str, msgstr: str):
     # Need this to support &nbsp;, since ET only parses XML.
     # Find a better solution?

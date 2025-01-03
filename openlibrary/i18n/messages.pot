@@ -2009,14 +2009,9 @@ msgstr ""
 msgid "Please add IA identifiers to be imported, one per line."
 msgstr ""
 
-
 #: BestbookModal.html admin/imports-add.html admin/inspect/store.html
 #: admin/ip/view.html admin/people/edits.html admin/permissions.html
 #: check_ins/check_in_form.html check_ins/reading_goal_form.html
-#: covers/add.html
-#: admin/imports-add.html admin/inspect/store.html admin/ip/view.html
-#: admin/people/edits.html admin/permissions.html check_ins/check_in_form.html
-#: check_ins/reading_goal_form.html
 msgid "Submit"
 msgstr ""
 
@@ -5708,10 +5703,6 @@ msgstr ""
 
 #: EditionNavBar.html observations/review_component.html
 msgid "Community Reviews"
-msgstr ""
-
-#: observations/review_component.html
-msgid "Feedback?"
 msgstr ""
 
 #: StarRatingsStats.html observations/review_component.html

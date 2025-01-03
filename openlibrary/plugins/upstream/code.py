@@ -13,12 +13,7 @@ from infogami.core import code as core
 from infogami.infobase import client
 from infogami.plugins.api.code import jsonapi, make_query
 from infogami.plugins.api.code import request as infogami_request
-from infogami.infobase import client
-from infogami.utils import (
-  delegate,
-  app,
-  types
-)
+from infogami.utils import delegate
 from infogami.utils.context import context  # noqa: F401 side effects may be needed
 from infogami.utils.view import (
     add_flash_message,
@@ -27,7 +22,9 @@ from infogami.utils.view import (
     render_template,  # used for its side effects
     safeint,
 )
-from openlibrary import accounts  # noqa: F401 side effects may be needed
+from openlibrary import accounts
+from openlibrary.core import bestbook as bestbook_model
+from openlibrary.core import bookshelves
 from openlibrary.plugins.upstream import (
     addbook,
     addtag,
@@ -43,9 +40,6 @@ from openlibrary.plugins.upstream import (
 )  # TODO: unused imports?
 from openlibrary.plugins.upstream.utils import render_component
 from openlibrary.utils import extract_numeric_id_from_olid
-
-from openlibrary.core import bestbook as bestbook_model, bookshelves
-from openlibrary.core import helpers as h
 
 if not config.get('coverstore_url'):
     config.coverstore_url = "https://covers.openlibrary.org"  # type: ignore[attr-defined]

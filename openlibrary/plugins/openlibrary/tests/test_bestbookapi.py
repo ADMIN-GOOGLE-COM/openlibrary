@@ -1,7 +1,10 @@
 import json
+
 import web
+
 from openlibrary import accounts
-from openlibrary.core import bestbook as bestbook_model, bookshelves
+from openlibrary.core import bestbook as bestbook_model
+from openlibrary.core import bookshelves
 from openlibrary.plugins.upstream.code import bestbook, bestbook_count
 
 

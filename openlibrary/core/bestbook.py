@@ -1,5 +1,6 @@
-from . import db
 from openlibrary.core.bookshelves import Bookshelves
+
+from . import db
 
 
 class Bestbook(db.CommonExtras):
@@ -81,7 +82,6 @@ class Bestbook(db.CommonExtras):
         )
         return list(result) if result else []
 
-
     @classmethod
     def check_if_award_given(cls, submitter, work_id=None, topic=None):
         """This function checks if the award is already given to a book or topic by patron
@@ -111,7 +111,6 @@ class Bestbook(db.CommonExtras):
             query += " AND topic=$topic"
         award = list(oldb.query(query, vars=data))
         return award[0] if award else None
-
 
     @classmethod
     def add(cls, submitter, work_id, topic, comment="", edition_id=None) -> bool:
@@ -216,11 +215,17 @@ class Bestbook(db.CommonExtras):
             awarded_topic = cls.check_if_award_given(username, topic=topic)
 
             if not has_read_book:
-                errors.append("Only books which have been marked as read may be given awards")
+                errors.append(
+                    "Only books which have been marked as read may be given awards"
+                )
             if awarded_book:
-                errors.append(f"A work may only be nominated one time for a best book award")
+                errors.append(
+                    "A work may only be nominated one time for a best book award"
+                )
             if awarded_topic:
-                errors.append(f"A topic may only be nominated one time for a best book award: The work {awarded_topic.work_id} has already been nominated for topic {awarded_topic.topic}")
+                errors.append(
+                    f"A topic may only be nominated one time for a best book award: The work {awarded_topic.work_id} has already been nominated for topic {awarded_topic.topic}"
+                )
 
         if errors:
             raise cls.AwardConditionsError(" ".join(errors))

@@ -15,7 +15,7 @@ from infogami import config  # noqa: F401 side effects may be needed
 from infogami.plugins.api.code import jsonapi
 from infogami.utils import delegate
 from infogami.utils.view import (
-    add_flash_message,  # noqa: F401 side effects may be needed
+    add_flash_message,
     render_template,  # noqa: F401 used for its side effects
 )
 from openlibrary import accounts
@@ -24,8 +24,8 @@ from openlibrary.accounts.model import (
 )
 from openlibrary.core import helpers as h
 from openlibrary.core import lending, models
-from openlibrary.core.bookshelves_events import BookshelvesEvents
 from openlibrary.core.bestbook import Bestbook
+from openlibrary.core.bookshelves_events import BookshelvesEvents
 from openlibrary.core.follows import PubSub
 from openlibrary.core.helpers import NothingEncoder
 from openlibrary.core.models import (
@@ -725,12 +725,11 @@ class bestbook_award(delegate.page):
 
         i = web.input(op="add", edition_key=None, topic=None, comment="", redir=False)
 
-        user = accounts.get_current_user()
         edition_id = i.edition_key and int(extract_numeric_id_from_olid(i.edition_key))
         redir_key = i.edition_key if i.edition_key else f"/works/OL{work_id}W"
         errors = []
 
-        if user:
+        if user := accounts.get_current_user():
             try:
                 username = user.key.split('/')[2]
                 if i.op == "update":
